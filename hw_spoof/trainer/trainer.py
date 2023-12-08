@@ -217,7 +217,7 @@ class Trainer(BaseTrainer):
         for a, p, n, l in tuples[:examples_to_log]:
             rows[n] = {
                 "audio": self.writer.wandb.Audio(a.detach().cpu().numpy(), sample_rate=16000),
-                "spoof_prob": p[1].item(),
+                "spoof_prob": int(p[1].item() * 100),
                 "label": l.item()
             }
         self.writer.add_table("predictions", pd.DataFrame.from_dict(rows, orient="index"))
