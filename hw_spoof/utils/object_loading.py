@@ -2,10 +2,10 @@ from operator import xor
 
 from torch.utils.data import ConcatDataset, DataLoader
 
-import hw_vocoder.datasets
-from hw_vocoder.base.base_text_encoder import BaseTextEncoder
-from hw_vocoder.collate_fn.collate import collate_fn
-from hw_vocoder.utils.parse_config import ConfigParser
+import hw_spoof.datasets
+from hw_spoof.base.base_text_encoder import BaseTextEncoder
+from hw_spoof.collate_fn.collate import collate_fn
+from hw_spoof.utils.parse_config import ConfigParser
 
 
 def get_dataloaders(configs: ConfigParser):
@@ -21,7 +21,7 @@ def get_dataloaders(configs: ConfigParser):
         datasets = []
         for ds in params["datasets"]:
             datasets.append(configs.init_obj(
-                ds, hw_vocoder.datasets, config_parser=configs,
+                ds, hw_spoof.datasets, config_parser=configs,
                 wave_augs=wave_augs, spec_augs=spec_augs))
         assert len(datasets)
         if len(datasets) > 1:
@@ -36,10 +36,6 @@ def get_dataloaders(configs: ConfigParser):
             bs = params["batch_size"]
             shuffle = True
             batch_sampler = None
-        elif "batch_sampler" in params:
-            batch_sampler = configs.init_obj(params["batch_sampler"], batch_sampler_module,
-                                             data_source=dataset)
-            bs, shuffle = 1, False
         else:
             raise Exception()
 
