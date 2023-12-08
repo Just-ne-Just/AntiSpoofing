@@ -14,4 +14,5 @@ class EERMetric(BaseMetric):
         bonafide_scores = prediction[label == 0]
         spoof_scores = prediction[label == 1]
         eer, _ = compute_eer(bonafide_scores, spoof_scores)
+        print(eer)
         return eer
