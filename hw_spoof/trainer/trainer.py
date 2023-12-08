@@ -215,11 +215,10 @@ class Trainer(BaseTrainer):
         shuffle(tuples)
         rows = {}
         for a, p, n, l in tuples[:examples_to_log]:
-            print(p, l)
             rows[n] = {
                 "audio": self.writer.wandb.Audio(a.detach().cpu().numpy(), sample_rate=16000),
-                "spoof_prob": p[1],
-                "label": l
+                "spoof_prob": p[1].item(),
+                "label": l.item()
             }
         self.writer.add_table("predictions", pd.DataFrame.from_dict(rows, orient="index"))
 
