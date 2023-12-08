@@ -24,21 +24,20 @@
   },
   "data": {
     "train": {
-      "batch_size": 10,
+      "batch_size": 64,
       "num_workers": 0,
       "datasets": [
         {
           "type": "SpoofDataset",
           "args": {
             "part": "train",
-            "limit": 10,
             "data_dir": "/kaggle/input/asvpoof-2019-dataset/LA/LA"
           }
         }
       ]
     },
     "val": {
-      "batch_size": 32,
+      "batch_size": 64,
       "num_workers": 0,
       "datasets": [
         {
