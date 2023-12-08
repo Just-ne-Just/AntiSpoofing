@@ -45,6 +45,8 @@ class SpoofDataset(Dataset):
         if limit is not None:
             self.index = self.index[:limit]
 
+        print(self.index)
+
     def __getitem__(self, index):
         data_dict = self.index[index]
         audio_path = data_dict["path"]
