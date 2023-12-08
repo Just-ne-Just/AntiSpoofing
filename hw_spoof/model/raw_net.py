@@ -38,17 +38,25 @@ class RawNet(nn.Module):
     def forward(self, audio, **kwargs):
         x = audio.unsqueeze(1)
         x = self.sinc(x)
+        print("1", x)
         x = self.max_pooling(torch.abs(x))
         x = self.norm(x)
         x = self.activation(x)
+        print("2", x)
 
         for first_block in self.first_blocks:
             x = first_block(x)
         
+        print("3", x)
+        
         x = self.middle_block(x)
+
+        print("4", x)
 
         for second_block in self.second_blocks:
             x = second_block(x)
+
+        print("5", x)
         
         x = self.gru_norm(x)
         x = self.gru_activation(x)
@@ -57,9 +65,11 @@ class RawNet(nn.Module):
         self.gru.flatten_parameters()
 
         x, _ = self.gru(x)
+        print("6", x)
         x = x[:, -1, :]
         x = self.fc1(x)
         x = self.fc2(x)
+        print("7", x)
 
         print("Model prediction", x)
         return {"prediction": x}
