@@ -202,7 +202,7 @@ class Trainer(BaseTrainer):
             prediction,
             label,
             name,
-            examples_to_log=10,
+            examples_to_log=3,
             train=False,
             *args,
             **kwargs,
