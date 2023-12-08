@@ -13,6 +13,7 @@ from tqdm import tqdm
 from hw_spoof.base import BaseTrainer
 from hw_spoof.logger.utils import plot_spectrogram_to_buf
 from hw_spoof.utils import inf_loop, MetricTracker
+import numpy as np
 
 
 class Trainer(BaseTrainer):
@@ -145,8 +146,6 @@ class Trainer(BaseTrainer):
                 self.lr_scheduler.step()
 
         metrics.update("loss", batch["loss"].item())
-        for met in self.metrics:
-            metrics.update(met.name, met(**batch))
         return batch
 
     def _evaluation_epoch(self, epoch, part, dataloader):
@@ -158,6 +157,8 @@ class Trainer(BaseTrainer):
         """
         self.model.eval()
         self.evaluation_metrics.reset()
+
+        preds, labels = [], []
         with torch.no_grad():
             for batch_idx, batch in tqdm(
                     enumerate(dataloader),
@@ -169,6 +170,9 @@ class Trainer(BaseTrainer):
                     is_train=False,
                     metrics=self.evaluation_metrics,
                 )
+                preds = preds + batch["prediction"].detach().cpu().tolist()
+                labels = labels + batch["label"].detach().cpu()[:, 0].tolist()
+
             self.writer.set_step(epoch * self.len_epoch, part)
             self._log_scalars(self.evaluation_metrics)
             self._log_predictions(**batch, train=False)
@@ -176,6 +180,10 @@ class Trainer(BaseTrainer):
         # add histogram of model parameters to the tensorboard
         for name, p in self.model.named_parameters():
             self.writer.add_histogram(name, p, bins="auto")
+
+        for met in self.metrics:
+            self.evaluation_metrics.update(met.name, met(np.array(preds), np.array(labels)))
+
         return self.evaluation_metrics.result()
 
     def _progress(self, batch_idx):

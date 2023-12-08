@@ -11,7 +11,7 @@ class EERMetric(BaseMetric):
         super().__init__(*args, **kwargs)
 
     def __call__(self, prediction: Tensor, label: Tensor, **kwargs):
-        bonafide_scores = prediction[label == 0, 0]
-        spoof_scores = prediction[label == 1, 1]
-        eer, _ = compute_eer(bonafide_scores.detach().cpu().numpy(), spoof_scores.detach().cpu().numpy())
+        bonafide_scores = prediction[label == 0]
+        spoof_scores = prediction[label == 1]
+        eer, _ = compute_eer(bonafide_scores, spoof_scores)
         return eer
