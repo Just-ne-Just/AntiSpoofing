@@ -106,9 +106,14 @@ class Trainer(BaseTrainer):
                         epoch, self._progress(batch_idx), batch["loss"].item()
                     )
                 )
-                self.writer.add_scalar(
-                    "learning rate", self.lr_scheduler.get_last_lr()[0]
-                )
+                if self.lr_scheduler is not None:
+                    self.writer.add_scalar(
+                        "learning rate", self.lr_scheduler.get_last_lr()[0]
+                    )
+                else:
+                    self.writer.add_scalar(
+                        "learning rate", self.config["optimizer"]["args"]["lr"]
+                    )
                 self._log_predictions(**batch, train=True)
                 self._log_scalars(self.train_metrics)
                 # we don't want to reset train metrics at the start of every epoch
