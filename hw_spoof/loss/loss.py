@@ -3,7 +3,7 @@ from torch import Tensor
 import torch.nn as nn
 
 class CELoss(nn.Module):
-    def __init__(self, spoof_scale=1.0, bonafide_scale=9.0):
+    def __init__(self, spoof_scale=1, bonafide_scale=9):
         super().__init__()
         self.spoof_scale = spoof_scale
         self.bonafide_scale = bonafide_scale

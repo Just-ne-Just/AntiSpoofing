@@ -25,5 +25,5 @@ def collate_fn(dataset_items: List[dict]):
     return {
         "audio": audio,
         "name": name,
-        "label": torch.Tensor(label)
+        "label": torch.LongTensor(label)
     }
