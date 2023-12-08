@@ -12,7 +12,6 @@ from tqdm import tqdm
 
 from hw_spoof.base import BaseTrainer
 from hw_spoof.logger.utils import plot_spectrogram_to_buf
-from hw_spoof.metric.utils import calc_eer
 from hw_spoof.utils import inf_loop, MetricTracker
 
 
