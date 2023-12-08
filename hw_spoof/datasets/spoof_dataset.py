@@ -16,8 +16,9 @@ logger = logging.getLogger(__name__)
 
 
 class SpoofDataset(Dataset):
-    def __init__(self, part: str, data_dir: str, limit = None, *args, **kwargs):
+    def __init__(self, part: str, data_dir: str, limit = None, max_len = 64000, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.max_len = max_len
         protocols_file = Path(data_dir) / "ASVspoof2019_LA_cm_protocols" / f"ASVspoof2019.LA.cm.{part}.{'trn' if part == 'train' else 'trl'}.txt"
         data_dir = Path(data_dir) / f"ASVspoof2019_LA_{part}" / "flac"
         if not data_dir.exists():
@@ -51,8 +52,8 @@ class SpoofDataset(Dataset):
         audio_wave = self.load_audio(audio_path)
 
         return {
-            "audio": audio_wave,
-            "audio_length": audio_wave.shape[-1],
+            "audio": audio_wave[:, :self.max_len],
+            "audio_length": 64000,
             "label": data_dict["label"],
             "name": data_dict["path"].split('/')[-1]
         }
