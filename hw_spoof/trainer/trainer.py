@@ -170,8 +170,8 @@ class Trainer(BaseTrainer):
                     is_train=False,
                     metrics=self.evaluation_metrics,
                 )
-                preds = preds + batch["prediction"].detach().cpu().tolist()
-                labels = labels + batch["label"].detach().cpu()[:, 0].tolist()
+                preds = preds + batch["prediction"].detach().cpu()[:, 0].tolist()
+                labels = labels + batch["label"].detach().cpu().tolist()
 
             self.writer.set_step(epoch * self.len_epoch, part)
             self._log_scalars(self.evaluation_metrics)
