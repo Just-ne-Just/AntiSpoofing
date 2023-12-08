@@ -61,6 +61,7 @@ class RawNet(nn.Module):
         x = self.fc1(x)
         x = self.fc2(x)
 
+        print("Model prediction", x)
         return {"prediction": x}
     
     def __str__(self):
