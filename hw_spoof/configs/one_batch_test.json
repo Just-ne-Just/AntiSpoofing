@@ -45,7 +45,7 @@
           "type": "SpoofDataset",
           "args": {
             "part": "train",
-            "limit": 10000,
+            "limit": 5000,
             "data_dir": "/kaggle/input/asvpoof-2019-dataset/LA/LA"
           }
         }
