@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from sinc_conv import SincConvFast
-from res_block import ResBlock
+from hw_spoof.model.sinc_conv import SincConvFast
+from hw_spoof.model.res_block import ResBlock
 import numpy as np
 
 class RawNet(nn.Module):
