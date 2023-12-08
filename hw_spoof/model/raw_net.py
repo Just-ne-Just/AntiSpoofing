@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 from hw_spoof.model.sinc_conv import SincConvFast
 from hw_spoof.model.res_block import ResBlock
+# from sinc_conv import SincConvFast
+# from res_block import ResBlock
 import numpy as np
 
 class RawNet(nn.Module):
@@ -38,25 +40,25 @@ class RawNet(nn.Module):
     def forward(self, audio, **kwargs):
         x = audio.unsqueeze(1)
         x = self.sinc(x)
-        print("1", x)
+        # print("1", x)
         x = self.max_pooling(torch.abs(x))
         x = self.norm(x)
         x = self.activation(x)
-        print("2", x)
+        # print("2", x)
 
         for first_block in self.first_blocks:
             x = first_block(x)
         
-        print("3", x)
+        # print("3", x)
         
         x = self.middle_block(x)
 
-        print("4", x)
+        # print("4", x)
 
         for second_block in self.second_blocks:
             x = second_block(x)
 
-        print("5", x)
+        # print("5", x)
         
         x = self.gru_norm(x)
         x = self.gru_activation(x)
@@ -65,13 +67,13 @@ class RawNet(nn.Module):
         self.gru.flatten_parameters()
 
         x, _ = self.gru(x)
-        print("6", x)
+        # print("6", x)
         x = x[:, -1, :]
         x = self.fc1(x)
         x = self.fc2(x)
-        print("7", x)
+        # print("7", x)
 
-        print("Model prediction", x)
+        # print("Model prediction", x)
         return {"prediction": x}
     
     def __str__(self):

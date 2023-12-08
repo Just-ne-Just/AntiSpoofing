@@ -2,9 +2,9 @@ import torch
 import torch.nn as nn
 
 class ResBlock(nn.Module):
-    def __init__(self, in_channels, out_channels, *args, **kwargs) -> None:
+    def __init__(self, in_channels, out_channels, first=False, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-
+        self.first = first
         self.norm1 = nn.BatchNorm1d(in_channels)
         self.activation1 = nn.LeakyReLU(0.3)
         self.conv1 = nn.Conv1d(in_channels, out_channels, kernel_size=3, padding=1, stride=1)
@@ -22,8 +22,9 @@ class ResBlock(nn.Module):
         self.conv_proj = nn.Conv1d(in_channels, out_channels, kernel_size=1, padding=0, stride=1) if in_channels != out_channels else None
     
     def forward(self, x):
-        out = self.norm1(x)
-        out = self.activation1(out)
+        if not self.first:
+            out = self.norm1(x)
+            out = self.activation1(out)
         out = self.conv1(out)
         out = self.norm2(out)
         out = self.activation2(out)
@@ -39,4 +40,4 @@ class ResBlock(nn.Module):
         out = self.sigmoid(out)
         out = out.reshape(out.shape[0], out.shape[1], -1)
 
-        return x * x + out
+        return x + out
