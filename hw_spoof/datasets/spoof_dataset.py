@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class SpoofDataset(Dataset):
-    def __init__(self, part: str, data_dir: str, *args, **kwargs):
+    def __init__(self, part: str, data_dir: str, limit = None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         data_dir = Path(data_dir) / f"ASVspoof2019_LA_{part}" / "flac"
         protocols_file = Path(data_dir) / "ASVspoof2019_LA_cm_protocols" / f"ASVspoof2019.LA.cm.{part}.trl.txt"
@@ -36,6 +36,9 @@ class SpoofDataset(Dataset):
                     "label": label
                 }
             )
+        
+        if limit is not None:
+            self.index = self.index[:limit]
 
     def __getitem__(self, index):
         data_dict = self.index[index]
