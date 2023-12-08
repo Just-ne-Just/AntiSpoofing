@@ -178,8 +178,8 @@ class Trainer(BaseTrainer):
             self._log_predictions(**batch, train=False)
 
         # add histogram of model parameters to the tensorboard
-        for name, p in self.model.named_parameters():
-            self.writer.add_histogram(name, p, bins="auto")
+        # for name, p in self.model.named_parameters():
+        #     self.writer.add_histogram(name, p, bins="auto")
 
         for met in self.metrics:
             self.evaluation_metrics.update(met.name, met(np.array(preds), np.array(labels)))
