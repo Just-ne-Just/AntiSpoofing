@@ -173,7 +173,8 @@ class Trainer(BaseTrainer):
                 preds = preds + batch["prediction"].detach().cpu()[:, 1].tolist()
                 labels = labels + batch["label"].detach().cpu().tolist()
             
-            print(len(preds), len(labels), sum(labels))
+            for met in self.metrics:
+                self.evaluation_metrics.update(met.name, met(np.array(preds), np.array(labels)))
 
             self.writer.set_step(epoch * self.len_epoch, part)
             self._log_scalars(self.evaluation_metrics)
@@ -182,9 +183,6 @@ class Trainer(BaseTrainer):
         # add histogram of model parameters to the tensorboard
         # for name, p in self.model.named_parameters():
         #     self.writer.add_histogram(name, p, bins="auto")
-
-        for met in self.metrics:
-            self.evaluation_metrics.update(met.name, met(np.array(preds), np.array(labels)))
 
         return self.evaluation_metrics.result()
 
