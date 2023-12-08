@@ -24,7 +24,7 @@
   },
   "data": {
     "train": {
-      "batch_size": 64,
+      "batch_size": 32,
       "num_workers": 0,
       "datasets": [
         {
@@ -37,13 +37,26 @@
       ]
     },
     "val": {
-      "batch_size": 64,
+      "batch_size": 32,
       "num_workers": 0,
       "datasets": [
         {
           "type": "SpoofDataset",
           "args": {
             "part": "eval",
+            "data_dir": "/kaggle/input/asvpoof-2019-dataset/LA/LA"
+          }
+        }
+      ]
+    },
+    "dev": {
+      "batch_size": 32,
+      "num_workers": 0,
+      "datasets": [
+        {
+          "type": "SpoofDataset",
+          "args": {
+            "part": "dev",
             "data_dir": "/kaggle/input/asvpoof-2019-dataset/LA/LA"
           }
         }
@@ -71,15 +84,15 @@
     }
   ],
   "trainer": {
-    "epochs": 40,
+    "epochs": 60,
     "save_dir": "saved/",
-    "save_period": 10,
+    "save_period": 5,
     "verbosity": 2,
     "monitor": "min val_loss",
     "early_stop": 100,
     "visualize": "wandb",
     "wandb_project": "spoof_project",
-    "len_epoch": 1000,
+    "len_epoch": 1500,
     "grad_norm_clip": 100
   }
 }
