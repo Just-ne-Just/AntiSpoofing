@@ -20,8 +20,11 @@ class SpoofDataset(Dataset):
         super().__init__(*args, **kwargs)
         data_dir = Path(data_dir) / f"ASVspoof2019_LA_{part}" / "flac"
         protocols_file = Path(data_dir) / "ASVspoof2019_LA_cm_protocols" / f"ASVspoof2019.LA.cm.{part}.{'trn' if part == 'train' else 'trl'}.txt"
-        if not data_dir.exists() or not protocols_file.exists():
+        if not data_dir.exists():
             raise NotADirectoryError()
+        
+        if not protocols_file.exists():
+            raise FileNotFoundError()
 
         self.index = []
         with open(protocols_file, 'r', encoding='utf-8') as f:
