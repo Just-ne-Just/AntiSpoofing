@@ -45,7 +45,7 @@
           "type": "SpoofDataset",
           "args": {
             "part": "train",
-            "limit": 10,
+            "limit": 100,
             "data_dir": "/kaggle/input/asvpoof-2019-dataset/LA/LA"
           }
         }
@@ -81,7 +81,7 @@
     "early_stop": 100,
     "visualize": "wandb",
     "wandb_project": "spoof_project",
-    "len_epoch": 1000,
+    "len_epoch": 10,
     "grad_norm_clip": 100
   }
 }
