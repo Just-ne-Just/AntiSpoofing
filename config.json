@@ -38,14 +38,13 @@
       ]
     },
     "val": {
-      "batch_size": 10,
+      "batch_size": 32,
       "num_workers": 0,
       "datasets": [
         {
           "type": "SpoofDataset",
           "args": {
-            "part": "train",
-            "limit": 10,
+            "part": "eval",
             "data_dir": "/kaggle/input/asvpoof-2019-dataset/LA/LA"
           }
         }
@@ -81,7 +80,7 @@
     "early_stop": 100,
     "visualize": "wandb",
     "wandb_project": "spoof_project",
-    "len_epoch": 1000,
+    "len_epoch": 100,
     "grad_norm_clip": 100
   }
 }
