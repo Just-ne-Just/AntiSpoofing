@@ -170,7 +170,7 @@ class Trainer(BaseTrainer):
                     is_train=False,
                     metrics=self.evaluation_metrics,
                 )
-                preds = preds + batch["prediction"].detach().cpu()[:, 1].tolist()
+                preds = preds + batch["prediction"].detach().cpu()[:, 0].tolist()
                 labels = labels + batch["label"].detach().cpu().tolist()
             
             for met in self.metrics:
