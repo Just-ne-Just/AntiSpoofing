@@ -11,6 +11,7 @@ from tqdm import tqdm
 from torch.utils.data import Dataset
 import numpy as np
 from tqdm import tqdm
+import torch
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +51,8 @@ class SpoofDataset(Dataset):
         data_dict = self.index[index]
         audio_path = data_dict["path"]
         audio_wave = self.load_audio(audio_path)
-
+        while audio_wave.shape[-1] < self.max_len:
+            audio_wave = torch.cat((audio_wave, audio_wave), dim=-1)
         return {
             "audio": audio_wave[:, :self.max_len],
             "audio_length": 64000,
