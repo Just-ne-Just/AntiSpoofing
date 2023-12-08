@@ -33,8 +33,8 @@ class SpoofDataset(Dataset):
             a = list(map(lambda x: x.strip(), f.readlines()))
         
         for obj in tqdm(a, desc="loading index..."):
-            name = obj.strip()[1]
-            label = int(obj.strip()[-1] == "spoof")
+            name = obj.split()[1]
+            label = int(obj.split()[-1] == "spoof")
             self.index.append(
                 {
                     "path": str(data_dir / f"{name}.flac"),
@@ -44,8 +44,6 @@ class SpoofDataset(Dataset):
         
         if limit is not None:
             self.index = self.index[:limit]
-
-        print(self.index)
 
     def __getitem__(self, index):
         data_dict = self.index[index]
