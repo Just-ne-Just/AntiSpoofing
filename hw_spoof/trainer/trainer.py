@@ -200,6 +200,7 @@ class Trainer(BaseTrainer):
             self,
             audio,
             prediction,
+            label,
             name,
             examples_to_log=10,
             train=False,
@@ -210,13 +211,14 @@ class Trainer(BaseTrainer):
         if self.writer is None:
             return
         prob = F.softmax(prediction, dim=-1)
-        tuples = list(zip(audio, prob, name))
+        tuples = list(zip(audio, prob, name, label))
         shuffle(tuples)
         rows = {}
-        for a, p, n in tuples[:examples_to_log]:
+        for a, p, n, l in tuples[:examples_to_log]:
             rows[n] = {
                 "audio": self.writer.wandb.Audio(a.detach().cpu().numpy(), sample_rate=16000),
-                "spoof_prob": p,
+                "spoof_prob": p[1],
+                "label": l
             }
         self.writer.add_table("predictions", pd.DataFrame.from_dict(rows, orient="index"))
 
