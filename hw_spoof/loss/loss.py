@@ -13,5 +13,5 @@ class CELoss(nn.Module):
                 label,
                 **kwargs) -> Tensor:
         
-        return nn.functional.cross_entropy(prediction, label, weight=torch.Tensor([self.bonafide_scale, self.spoof_scale]))
+        return nn.functional.cross_entropy(prediction, label, weight=torch.Tensor([self.bonafide_scale, self.spoof_scale]).to(prediction.device))
 
