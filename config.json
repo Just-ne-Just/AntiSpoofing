@@ -25,7 +25,7 @@
   "data": {
     "train": {
       "batch_size": 32,
-      "num_workers": 0,
+      "num_workers": 6,
       "datasets": [
         {
           "type": "SpoofDataset",
@@ -38,7 +38,7 @@
     },
     "val": {
       "batch_size": 32,
-      "num_workers": 0,
+      "num_workers": 6,
       "datasets": [
         {
           "type": "SpoofDataset",
@@ -51,7 +51,7 @@
     },
     "dev": {
       "batch_size": 32,
-      "num_workers": 0,
+      "num_workers": 6,
       "datasets": [
         {
           "type": "SpoofDataset",
@@ -88,7 +88,7 @@
     "save_dir": "saved/",
     "save_period": 5,
     "verbosity": 2,
-    "monitor": "min val_loss",
+    "monitor": "min val_EER",
     "early_stop": 100,
     "visualize": "wandb",
     "wandb_project": "spoof_project",
