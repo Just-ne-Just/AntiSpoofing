@@ -41,8 +41,7 @@ class RawNet(nn.Module):
         x = audio.unsqueeze(1)
         x = self.sinc(x)
         # print("1", x)
-        # x = self.max_pooling(torch.abs(x))
-        x = self.max_pooling(x)
+        x = self.max_pooling(torch.abs(x))
         x = self.norm(x)
         x = self.activation(x)
         # print("2", x)
@@ -61,8 +60,8 @@ class RawNet(nn.Module):
 
         # print("5", x)
         
-        x = self.gru_norm(x)
-        x = self.gru_activation(x)
+        # x = self.gru_norm(x)
+        # x = self.gru_activation(x)
         x = x.transpose(1, 2)
 
         self.gru.flatten_parameters()
