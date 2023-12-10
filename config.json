@@ -19,8 +19,7 @@
   "arch": {
     "type": "RawNet",
     "args": {
-      "sinc_kernel_size": 129,
-      "conv_channels": [[128, 128], [512, 512]]
+      "conv_channels": [[20, 20], [128, 128]]
     }
   },
   "data": {

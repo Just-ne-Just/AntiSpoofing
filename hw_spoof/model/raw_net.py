@@ -60,8 +60,8 @@ class RawNet(nn.Module):
 
         # print("5", x)
         
-        x = self.gru_norm(x)
-        x = self.gru_activation(x)
+        # x = self.gru_norm(x)
+        # x = self.gru_activation(x)
         x = x.transpose(1, 2)
 
         self.gru.flatten_parameters()
