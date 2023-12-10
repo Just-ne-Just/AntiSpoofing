@@ -73,7 +73,7 @@
   },
   "loss": {
     "type": "CELoss",
-    "args": {}
+    "args": {"spoof_scale": 1, "bonafide_scale": 1}
   },
   "metrics": [
     {
