@@ -14,4 +14,3 @@ pyctcdecode==0.5.0
 torchaudio
 Pillow==9.5.0
 gdown
-https://github.com/kpu/kenlm/archive/master.zip
