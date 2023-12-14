@@ -15,6 +15,7 @@ pip install -r ./requirements.txt
 python download.py && python test.py -c config.json -r model_best_hints.pth
 Результат в файле output.txt
 Директория, куда можно положить тестовые аудио - test_data
+Пример тестового запуска: https://colab.research.google.com/drive/1nfDj3xaKW3str4BbXCnuhpuyCKYDkGjr?usp=sharing
 ```
 ## Описание проекта
 AntiSpoofing английской речи
