@@ -47,7 +47,7 @@ def main(config, input_dir, out_file):
             audio = torchaudio.load(f"{input_dir}/{file}")[0].flatten().unsqueeze(0).to(device)
             out = model(audio)
             prob = torch.softmax(out["prediction"], dim=-1)
-            f.write(f"{file}: bona-{prob[0][0].item()} spoof-{prob[0][1].item()}\n")
+            f.write(f"{file}: bona: {prob[0][0].item()} spoof: {prob[0][1].item()}\n")
     
 
 
